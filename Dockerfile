@@ -36,7 +36,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_MEMORY_LIMIT=-1
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-# Copy composer files từ backend/ folder
+# Copy composer files
 COPY backend/composer.json backend/composer.lock ./
 
 # Install PHP dependencies
@@ -47,7 +47,7 @@ RUN composer install \
     --prefer-dist \
     --optimize-autoloader
 
-# Copy toàn bộ code từ backend/
+# Copy application code
 COPY backend/ .
 
 # Generate optimized autoload
@@ -70,17 +70,3 @@ CMD php artisan config:cache && \
     php artisan route:cache && \
     php artisan view:cache && \
     php artisan serve --host=0.0.0.0 --port=10000
-```
-
-## ⚙️ Cấu hình Render:
-
-Vào **Render Dashboard** → Your Service → **Settings**:
-```
-Root Directory: (để trống hoặc /)
-Dockerfile Path: ./Dockerfile
-```
-
-**HOẶC** nếu có option:
-```
-Build Command: (để trống)
-Docker Command: (để trống - dùng CMD trong Dockerfile)
