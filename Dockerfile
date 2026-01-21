@@ -72,12 +72,15 @@ RUN php artisan route:clear 2>/dev/null || true
 RUN php artisan view:clear 2>/dev/null || true
 RUN php artisan cache:clear 2>/dev/null || true
 
+# Copy startup script và set executable
+COPY backend/start.sh /var/www/start.sh
+RUN chmod +x /var/www/start.sh
+
 EXPOSE 10000
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s \
     CMD curl -f http://localhost:10000/api/health || exit 1
 
-# Start application với optimization
-CMD php artisan optimize && \
-    php artisan serve --host=0.0.0.0 --port=10000
+# Use startup script
+CMD ["/var/www/start.sh"]
