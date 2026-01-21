@@ -3,14 +3,17 @@ set -e
 
 echo "Starting application..."
 
-# Clear cache
-echo "Clearing cache..."
+# Chỉ clear config, không clear cache
+echo "Clearing config..."
 php artisan config:clear
-php artisan cache:clear
 
 # Run migrations
 echo "Running migrations..."
 php artisan migrate --force
+
+# Clear cache sau khi đã có bảng
+echo "Clearing cache..."
+php artisan cache:clear || true
 
 # Optimize
 echo "Optimizing..."
