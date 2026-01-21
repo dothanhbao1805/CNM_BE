@@ -144,7 +144,7 @@ class CheckoutController extends Controller
 
         // Khởi tạo thanh toán VNPAY
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://localhost:5173/vnpay-return";
+        $vnp_Returnurl = env('FRONTEND_URL', 'http://localhost:5173') . '/vnpay-return';
         $vnp_TmnCode = "G011CVNP";
         $vnp_HashSecret = "E4ZGGZTK5K153ANLDSBVXLNG0NEU6ZJJ";
 
